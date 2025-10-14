@@ -1,8 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
+<h1>Register</h1>
 <form method="POST" novalidate>
-    <input name="name" placeholder="Enter your name">
-    <input type="submit" value="Register">
+{{ form.hidden_tag() }}
+
+
+<div class="field">
+{{ form.username.label }}
+{{ form.username(size=32) }}
+{% if form.username.errors %}
+<div class="error">{{ form.username.errors[0] }}</div>
+{% endif %}
+</div>
+
+
+<div class="field">
+{{ form.email.label }}
+{{ form.email(size=40) }}
+{% if form.email.errors %}
+<div class="error">{{ form.email.errors[0] }}</div>
+{% endif %}
+</div>
+
+
+<div class="field">
+{{ form.password.label }}
+{{ form.password() }}
+{% if form.password.errors %}
+<div class="error">{{ form.password.errors[0] }}</div>
+{% endif %}
+</div>
+
+
+<div class="field">
+{{ form.confirm_password.label }}
+{{ form.confirm_password() }}
+{% if form.confirm_password.errors %}
+<div class="error">{{ form.confirm_password.errors[0] }}</div>
+{% endif %}
+</div>
+
+
+<div class="field">
+{{ form.bio.label }}
+{{ form.bio(rows=4) }}
+{% if form.bio.errors %}
+<div class="error">{{ form.bio.errors[0] }}</div>
+{% endif %}
+</div>
+
+
+<div class="field">{{ form.submit() }}</div>
 </form>
-<p>Hello {{ name | safe }}</p>
-{% endblock %}
+
+
+{% if success %}
+<h2>Welcome, {{ form.username.data }}!</h2>
+<p>Your bio/comment (sanitized) is shown below:</p>
+<div aria-live="polite">{{ bio | safe }}</div>
+{%
